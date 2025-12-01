@@ -1,0 +1,4 @@
+apiVersion: v2
+name: kubecostiq
+version: 0.1.0
+description: Kubernetes Cost Manager Helm Chart

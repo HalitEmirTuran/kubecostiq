@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubecostiq-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubecostiq-backend
+  template:
+    metadata:
+      labels:
+        app: kubecostiq-backend
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image }}:{{ .Values.backend.tag }}"
+          ports:
+            - containerPort: 8080
