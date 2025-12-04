@@ -1,121 +1,127 @@
-🚀 Kubecostiq — Kubernetes Gerçek Zamanlı Maliyet Analiz Dashboard’u
-Kubecostiq, Kubernetes cluster’ındaki anlık CPU ve bellek tüketimlerini metrics-server üzerinden okuyup bunlardan gerçek zamanlı saatlik maliyet hesaplayan bir Full‑Stack observability uygulamasıdır.
+# 🚀 Kubecostiq Kubernetes Gerçek Zamanlı Maliyet Analiz Dashboard’u!!!!
 
-Bu proje;
-✔ FastAPI backend
-✔ Next.js (React) frontend
-✔ Recharts grafikler
-✔ Gerçek zamanlı auto-refresh
-✔ Dark tema modern UI
+**Kubecostiq**, Kubernetes cluster’ındaki anlık CPU ve bellek kullanımını  
+`metrics-server` üzerinden okuyup gerçek zamanlı saatlik maliyet hesaplayan  
+modern bir **Full‑Stack Observability** uygulamasıdır.
 
-ile kullanıma hazır bir maliyet izleme çözümü sunar.
+Bu proje aşağıdaki teknolojilerle geliştirilmiştir:
 
-📌 Özellikler
-🔹 1. Namespace Bazlı Maliyet Hesaplama
-Metrics API’den alınan tüm pod’lar namespace’lere göre gruplandırılır ve:
+- ⚡ FastAPI (Backend)
+- ⚛️ Next.js / React (Frontend)
+- 📊 Recharts (Grafikler)
+- 🌙 Dark Theme UI
+- 🔄 Gerçek zamanlı otomatik veri yenileme
 
-toplam CPU çekirdek tüketimi
+---
 
-toplam bellek tüketimi
+## 📌 Özellikler
 
-saatlik hesaplanan maliyet
+### 🔹 1. Namespace Bazlı Maliyet Hesaplama
+Metrics API’den alınan pod verileri namespace’lere göre gruplanır ve:
 
-hesaplanır ve grafikte gösterilir.
+- Toplam CPU çekirdek tüketimi  
+- Toplam bellek tüketimi  
+- Hesaplanan saatlik maliyet  
 
-🔹 2. Pod Bazlı Detaylı Maliyet Tablosu
+otomatik olarak hesaplanarak grafikte gösterilir.
+
+---
+
+### 🔹 2. Pod Bazlı Detaylı Maliyet Tablosu
 Her pod için:
 
-CPU (core)
+- CPU (cores)  
+- Bellek (GB)  
+- Saatlik maliyet ($)
 
-Bellek (GB)
+şeffaf şekilde listelenir.
 
-Saatlik maliyet ($)
+---
 
-görüntülenir.
+### 🔹 3. Gerçek Zamanlı Otomatik Güncelleme
+Frontend, API verilerini **her 10 saniyede bir** yeniler.
 
-🔹 3. Gerçek Zamanlı Otomatik Güncelleme
-Frontend verileri her 10 saniyede bir otomatik yeniler.
+---
 
-🔹 4. Modern Dark Mode UI
-Daha okunabilir grafikler ve clean bir dashboard arayüzü.
+### 🔹 4. Modern Dark Mode UI
+Grafikler daha okunabilir, arayüz modern ve sade olacak şekilde tasarlanmıştır.
 
-🏗 Proje Mimarisi
-kubecostiq/
-│
-├── backend/          # FastAPI backend
-│   ├── app/
-│   │   └── main.py   # Kubernetes metrics to cost conversion API
-│
-├── frontend/         # Next.js frontend
-│   └── src/app/
-│       └── dashboard/page.tsx  # Dashboard UI
-│
-└── README.md
-⚙ Backend — FastAPI
-Backend, Kubernetes'in metrics.k8s.io API’sinden veriyi okuyarak maliyet hesaplar.
-Fiyatlandırma şu şekildedir:
+---
 
-CPU_PRICE = 0.045   # $/core-hour
-MEM_PRICE = 0.005   # $/GB-hour
-API Endpointleri
+## ⚙ Backend — FastAPI
+
+Backend, Kubernetes’in `metrics.k8s.io` API’sini kullanarak tüm pod’ların  
+CPU ve bellek tüketimlerini toplar ve bunları maliyete çevirir.
+
+### 💵 Fiyatlandırma Modeli
+
+```python
+CPU_PRICE = 0.045      # $ / core-hour
+MEM_PRICE = 0.005      # $ / GB-hour
+📡 API Endpointleri
 Endpoint	Açıklama
-/pods/usage	Tüm pod'ların ham CPU/Bellek kullanım verileri
+/pods/usage	Pod’ların ham CPU/Bellek kullanım verileri
 /pods/cost	Pod bazlı maliyet hesapları
 /namespaces/cost	Namespace bazlı maliyet özetleri
+
 🎨 Frontend — Next.js + Recharts
-Dark theme modern UI
+Modern dark theme
 
 Responsive bar chart
 
 Pod maliyet tablosu
 
-API’den 10 saniyede bir veri çekme
+API’den 10 saniyede bir veri yenileme
 
-Dashboard görünümü:
+Temiz dashboard görünümü
 
-Toplam Cluster Maliyeti
+Dashboard’da gösterilenler:
+
+Toplam cluster maliyeti
 
 Namespace bazlı maliyet grafiği
 
-Pod maliyet tablosu
+Pod bazlı maliyet tablosu
 
 ▶ Projeyi Çalıştırma
-1) Backend Başlat
+Backend
+bash
+Kodu kopyala
 cd backend
 uvicorn app.main:app --reload --port 8080
-2) Frontend Başlat
+Frontend
+bash
+Kodu kopyala
 cd frontend
 npm install
 npm run dev
-Arayüz burada açılır:
-
+Arayüz:
 👉 http://localhost:3000/dashboard
 
 🔧 Gereksinimler
-Kubernetes cluster (kind/minikube vb.)
+Kubernetes cluster (kind / minikube / k3d vb.)
 
-metrics-server yüklü olmalı
+metrics-server kurulu olmalı
 
 Python 3.10+
 
 Node.js 18+
 
 📝 Yol Haritası (Future Work)
-Bu proje geliştirilmeye devam edecek. Planlanan özellikler:
+Günlük / Aylık cluster maliyet grafikleri
 
- Cluster toplam maliyetinin günlük/aylık grafiği
+Node bazlı maliyet hesaplama
 
- Node bazlı maliyet hesaplama
+Storage maliyetleri
 
- Storage maliyetleri
+Network egress maliyetleri
 
- Network egress maliyetleri
+Auth / Login sistemi
 
- Kullanıcı login sistemi
+Helm chart ile deploy
 
- Helm chart ile deploy
+Trend analizi grafikleri
 
 👤 Geliştirici
 Halit Emir Turan
 DevOps & Cloud Enthusiast
-
